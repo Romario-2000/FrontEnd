@@ -1,0 +1,121 @@
+Javascript
+
+What is event loop and precedence in event loop
+ES6 features - let, const, arrow function, rest and spread operator, template literals, Promise
+Where we use rest operator
+Ans : In some case if we don’t know  how many parameter we will get in a function
+
+what are closures? Why we need to use it
+What is reduce function? what is difference between map and reduce
+What is difference between promise and callback
+This keyword in js
+
+----------------------------------------------------------------------------------------
+
+CSS
+position attribute - fixed,absolute,relative,sticky
+if we have a parent element, child element and subchild element the subchild has position absolute and parent has position relative on based on which it will align 
+what if we don’t have position relative in parent 
+
+flexbox - used to make pages responsive
+
+what is difference between display: none and visibility: hidden
+display: none will remove the element from DOM tree
+visibility: hidden this keeps the element position
+
+What is specificity in css
+How can we overlap elements in css
+---------------------------------
+HTML
+Difference between Html and xhtml
+What is figcaption tag?
+The <figcaption> tag in HTML is used to provide a caption or description for a <figure> element. The <figure> element is typically used to group media content like images, illustrations, diagrams, or code snippets, along with their captions.
+<figure>
+  <img src="image.jpg" alt="A beautiful scenery">
+  <figcaption>A beautiful scenery</figcaption>
+</figure>
+
+--------------------------------------------------------------------------------------------------------
+React
+
+when a component gets loaded what gets called - componentDidMount
+
+when will constructor method get called in class based component
+
+what is getDerivedStateFromProps
+
+how can we achieve componentDidMount,componentDidUpdate,willComponentUnmount in function based component
+Ans: componentDidMount- useEffect(()=>{
+},[])
+componentDidUpdate - useEffect(()=>{
+},[user])
+componentWillUnmount - a return within useEffect which has cleanup code
+
+what is purpose of Pure components
+
+what are higher order functions
+
+Working of virtual DOM
+which js engine uses google chrome 
+Ans: version 8
+why we use usestate and not assign to variable
+how to set default value to props
+
+----------------------------------------------------------------
+
+Redux
+How redux works?
+useReducer
+Middlewares - what is the purpose of going to middleware's even though we can dispatch action and do all things
+what is flux
+
+
+
+Guess the output based question
+function checkAge(data){
+  if(data === {age:18}){
+    console.log("You are adult")
+    
+  }
+  else if(data == {age:18}){
+    console.log("You are still an adult")
+  }
+  else{
+    console.log("Hmm.. No age")
+  }
+}
+
+checkAge({age:18})
+-------------------------------
+function abc(){
+  console.log(abc.timeout);
+}
+
+abc();
+abc.timeout=200;
+
+abc.timeout=100;
+abc();
+
+-----------------------------
+let a={name:'Adarsh'};
+let z=a;
+z.name='adil'
+console.log(a.name)
+
+Solution:
+a is object. Z refers to A.  both are pointing to same memory location
+-----------------------------
+console.log(+true)
+console.log(isNaN("Hello"))
+console.log(!"hello")
+
+console.log('2'-2)
+console.log(2-'2')
+
+console.log('2'+2)
+console.log(2+'2')
+Solution:
+The + operator when used with string it concatenates and produces a string
+the  - operator when used it performs subraction so the string gets converted to number
+The process of coverting a value from one data type to another is called type coersion
