@@ -1,0 +1,357 @@
+JavaScript output question
+YT: Code step by step
+
+function fruit()
+{
+    console.log(name); //O/P: undefined
+    console.log(price); //O/P: reference error
+    var name="apple";
+    let price = 20;
+    
+}
+fruit()
+
+Reason:
+we are trying to call a variable before its declaration
+
+var is hoisted and initilaized as undefined
+let and const are hoisted but it is not initialized. Hence it throws reference error
+
+--------------------------------------------------
+for(var i=0;i<3;i++){
+    setTimeout(()=>console.log(i),1)
+}
+
+O/P:
+3
+3
+3
+
+Reason:
+var is function-scoped (or global if not inside a function), so there is only one i variable shared across all iterations of the loop.
+
+By the time the setTimeout callback runs (after 1 millisecond), the loop has already finished and i has become 3.
+
+So, all three callbacks print the same final value of i: 3
+
+
+--------------------------------------------------
+for(let i=0;i<3;i++){
+    setTimeout(()=>console.log(i),1)
+}
+
+O/P:
+0
+1
+2
+
+Reason:
+let is block-scoped.
+
+Each iteration of the loop creates a new block-scoped i.
+
+So each callback "closes over" a separate copy of i, keeping its value at that iteration.
+
+-------------------------------------------------
+console.log(+true)   //O/P:1
+console.log(typeof +true)  //O/P:number
+
+Reason:
+The unary + operator attempts to convert its operand into a number.
+
+true is a boolean.
+
+When you apply + to true, JavaScript converts it to the number 1.
+-------------------------------------------------
+
+console.log(!"mario")  O/P:false
+console.log(typeof("mario")) O/P:string
+
+-------------------------------------------------
+let data = "size";
+const bird = {
+    size: "small",
+}
+console.log(bird[data])
+console.log(bird["size"])
+console.log(bird.size)
+console.log(bird.data)
+
+O/P:
+small
+small
+small
+undefined
+
+Reason:
+data holds the string "size", so bird[data] is the same as bird["size"].
+This accesses the size property of bird, which is "small".
+
+Directly accesses the size property using bracket notation with a string.
+Equivalent to bird.size.
+
+This tries to access a property literally named "data" on the bird object.
+There is no such property in bird.
+
+-----------------------------------------------
+let c={name: "mario"}
+let d
+d = c
+c.name="corera"
+
+console.log(d.name)  O/P: corera
+
+Reason: c is an object. So it uses call by reference. Both c and d shares the same memory address.
+
+------------------------------------------------
+let a=3
+let b= new Number(3)
+console.log(a == b)   O/P:true
+console.log(a === b)  O/P:false
+
+Reason:
+=== (strict equality) compares both value and type exactly as they are, without converting or coercing anything.
+== will coerce types to try and make them equal before comparing.
+
+------------------------------------------------
+function fruit(){
+    console.log("Apple")
+}
+fruit.name="orange"
+fruit()   O/P:Apple
+
+--------------------------------------------------
+function add(a,b){
+    return a+b
+}
+
+console.log(add(1,"2")) O/P: 12
+
+--------------------------------------------------
+let num=0
+console.log(num++)  
+console.log(++num)
+console.log(num)
+
+O/P:
+0
+2
+2
+
+Reason: In first it will print the num and increment the num from 0 to 1 so output 0
+in second case it will increment the number from 1 to 2 and prints 2
+in third case it prints 2
+
+----------------------------------------------------
+function getAge(...args){
+    console.log(typeof args)
+}
+getAge(25)
+
+O/P:
+Object
+
+Reason:
+We are using spread operator in argument. It is actually a array. But in JavaScript everything is an object.
+
+-----------------------------------------------------
+
+function getAge(){
+    'use strict'
+    age = 25;
+    console.log(age)
+}
+getAge(25)
+
+O/P: Reference error
+
+Reason: when you use strict mode you cannot use hoisting concept
+-----------------------------------------------------
+
+const sum = eval('10*10+5')
+console.log(sum)
+
+O/P: 105
+
+Reason:It takes a string and evaluates it as JavaScript code.
+
+------------------------------------------------------
+sessionStorage.setItem(secret,'123')
+
+once we close the tab the value will be removed
+
+-------------------------------------------------------
+const num = { 1:"a",2:"b",3:"c" }
+
+console.log(num.hasOwnProperty(1))
+console.log(num.hasOwnProperty("1"))
+
+O/P:
+true
+true
+
+--------------------------------------------------------
+const num = { a:"one",b:"two",a:"repeat" }
+console.log(num)
+
+O/P:
+{ a: 'repeat', b: 'two' }
+
+Reason:
+In objects, keys must be unique.
+If you define the same key multiple times, the last one wins.
+
+---------------------------------------------------------
+<div onClick="console.log('first div')">
+   <div onClick="console.log('second div')">
+      <button onClick="console.log('button')">Click</button>
+   </div>
+</div>
+
+O/P:
+button 
+second div
+first div
+
+Reason: Event bubbling happens from inside to outside
+
+---------------------------------------------------------
+const person = {name:"Lydia"}
+
+function sayHi(age){
+    return `${this.name} is ${age}`;
+}
+console.log(sayHi.call(person,25))
+console.log(sayHi.bind(person,25)())   //when you bind a function you should call it
+
+O/P:
+Lydia is 25
+Lydia is 25
+
+Reason:
+.call() calls the function immediately, with this set to person, and 25 as the argument.
+So this.name becomes "Lydia" and age is 25.
+
+.bind() does not call the function immediately.
+It returns a new function with this set to person and 25 pre-set as an argument.
+Then, you’re invoking the returned function with ().
+
+------------------------------------------------------------
+function sayHi(){
+    return (()=>0)();
+}
+
+console.log(typeof sayHi())
+
+O/P:
+number
+
+Reason: Is an Immediately Invoked Arrow Function Expression (IIFE).
+It defines an arrow function () => 0 that simply returns 0.
+Then it immediately calls it with ().
+
+--------------------------------------------------------------
+console.log(typeof typeof 1)
+
+O/P:string
+Reason: typeof will return a string "number", "Boolean", "undefined", "string"
+
+---------------------------------------------------------------
+const num =[1,2,3]
+num[9]=11
+console.log(num)
+
+O/P:[ 1, 2, 3, <6 empty items>, 11 ]
+
+--------------------------------------------------------------
+const num =[1,2,3]
+num[3]=num
+console.log(num)
+
+O/P:[ 1, 2, 3, [Circular *1] ]
+
+it will provide an infinite array
+
+---------------------------------------------------------------
+Everything in JavaScript is either a primitive or object
+
+---------------------------------------------------------------
+console.log(!!null)
+console.log(!!"")
+console.log(!!1)
+
+O/P:
+false
+false
+true
+
+---------------------------------------------------------------
+console.log(setInterval(()=>console.log("Hi"),1000))
+console.log(setInterval(()=>console.log("Hi"),1000))
+console.log(setInterval(()=>console.log("Hi"),1000))
+
+O/P:
+1
+2
+3 
+
+It will print 1 2 3 first which is unique id of the setInterval.
+Then it will keep printing Hi after certain interval
+
+--------------------------------------------------------------
+console.log(3 + 4 + "5")
+
+O/P: 75
+
+--------------------------------------------------------------
+console.log(typeof 3 + 4 + "5")
+
+O/P: number45
+
+--------------------------------------------------------------
+function getInfo(member){
+    member.name="mario"
+}
+
+const person = {name: "corera"}
+getInfo(person)
+console.log(person)
+
+Reason: Whenever we are passing object as an argument it is passed as reference
+
+--------------------------------------------------------------
+(()=>{
+    let x= (y = 10)
+})();
+console.log(typeof x)
+
+O/P: undefined
+
+Reason:
+X is declared using let and let is block scoped so it is undefined.
+if you console typeof y it will return number. Because y=10 is assignment expression and it is by default var which is global scope.
+
+--------------------------------------------------------------
+let x=100;
+(() => {
+    var x=20;
+})();
+console.log(x)
+
+O/P:100
+
+---------------------------------------------------------------
+console.log(!true - true)
+
+O/P:-1
+
+---------------------------------------------------------------
+
+
+
+
+
+
+
+
+
