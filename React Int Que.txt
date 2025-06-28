@@ -1,0 +1,234 @@
+Advantage of react
+
+Simple to build SPA by using components
+React is cross platform and open source
+Lightweight and fast as it uses virtual DOM
+
+What is DOM?
+DOM represents webpage as Tree like structure which allows javascript to dynamically access and manipulate the content of webpage
+
+Difference between DOM and virtual DOM?
+React uses virtual DOM to efficiently update the UI without re-rendering the entire page which helps to improve performance and make application more responsive
+There can be more than one virtual DOM.
+
+What is npm and node modules folder?
+npm is used to manage dependencies for your react project including react library.
+
+What is public folder in react?
+It contains static assets that are served directly to users browser such as images, fonts and index.html file
+
+what is the role of src folder?
+src folder is used to store the source code of the application
+
+index.html is the entry point of the application
+
+App.js is the root level component and it responsible for rendering all other components
+
+
+what is role of index.js, ReactDOM and render method in react?
+index.js is an integration file which renders all components and replace root element of index.html file with newly rendered root element
+ReactDOM is JS library that renders component to DOM or browser.
+
+
+Advantage of JSX
+improve code readability and code reusability
+Supports JavaScript expression
+
+
+Can browser read JSX file? what is babel?
+Browser cannot understand JSX code.
+Babel is used to transpile JSX syntax into regular javascript which browser can understand.
+
+What is transpiler?
+Whenever we change code from JSX to javascript this process is called transpile.
+
+Role of fragment in react?
+We should have a common root or parent element.
+Fragment is a way to group a list of children without adding extra nodes to the DOM.
+
+What is map method?
+map method allows you to iterate over an array and modify its elements using callback function.
+
+Props in JSX
+Props are way to pass data from parent component to child component
+
+What is spread operator?
+Spread operator is used to expand or spread an array or object
+
+Condition rendering in JSX?
+If else
+Ternary operator
+2>1 ? "ABC" : "xyz";
+&& operator
+2>1 && "abc";
+switch statement
+
+What are state, stateless, stateful and state management terms?
+State refers to current data of the component
+stateful or state management means when a user performs some actions on UI the react application should be able to update and re-render the data on the UI
+
+What is Prop drilling?
+Process of passing down data through multiple layers of components.
+
+
+Hooks in React
+What are react hooks?
+React hooks are inbuilt function provided by react that allows functional components to use state and lifecycle features.
+Before hooks in class component lifecycle method were used to maintain state in react.
+
+useState - state
+useEffect - side effects
+useContext - context
+useReducer -  state management for smaller application
+useCallback - memoization
+useMemo - performance
+useRef - ref
+useLayoutEffect - synchronous side effect
+
+What is useState hook and how it works?
+useState hook will be called only once when the component is loaded for first time.
+When you update the component by clicking the button only the increment function and set state is called not the hook.
+
+useState accepts initial value as parameter and returns an array with two elements
+The first element is current state value.
+The second element is function that is used to update the state.
+
+What is role of useEffect hook and how it works?
+useEffect hook is used to perform side effects in functional component.
+For Example: Data fetching from API that needs to be performed after the component has been rendered.
+
+useEffect is called after the component renders
+
+What is Dependency array in useEffect?
+If dependency value change the code inside useEffect will be executed again.
+
+Empty array in useEffect?
+An empty array indicates the effect function should run only once.
+
+Hooks useContext and useReducer
+Role of useContext() hook
+UseContext in react provides a way to pass data from parent to child component without using props.
+
+what is createContext method? what are provider and consumer properties?
+createContext method returns an object with provider and consumer properties.
+useContext method or consumer property can be used to consume the context value in child components
+Provider property is responsible for providing context value to all child component
+
+Theme switching
+Localization (language selection)
+
+------------------------------------------------------------------------------------------------------------------
+
+Component Lifecycle methods
+what are component life cycle phases?
+whenever component loads in react it has a life
+Mounting phase (component creation started) - it occurs when an instance of component is created and inserted into DOM
+Updating phase (component updates)- it occurs when a component is being re-rendered as a result of change in props or state
+Unmounting phase (removal from DOM)-it occurs when component gets removed from DOM
+
+What are component Lifecycle method?
+
+mounting Phase                        Updating phase                     Unmounting phase
+constructor()                         getDerivedStateFromProps()         componentWillUnmount()
+getDerivedStateFromProps()            shouldComponentUpdate()
+render()                              render()
+componentDidMount()                   getSnapshotBeforeUpdate()
+                                      componentDidUpdate()
+
+
+What are constructor in class component? When to use them?
+constructor function will be invoked automatically when class component is called.
+constructor is used to initialize the components state or perform any setup that is needed before the component is rendered.
+
+What is role of super keyword in constructor?
+super keyword will execute the constructor of parent class component.
+
+What is role of render() method in component lifecycle?
+render method returns react elements that will be rendered to the DOM.
+
+How state is maintained in class component?
+this.setState() method is used to update the state.
+this.state property is used to render the update state in DOM.
+
+what is the role of ComponentDidMount() method in component life cycle?
+It is called after a component has been rendered to DOM.
+
+---------------------------------------------------------------------------------------------------------------------
+
+Controlled and Uncontrolled component
+
+What are controlled component in react?
+A controlled component is a component whose form element (like input fields,checkboxes) are controlled by state of the application.
+Here we use useState to manage state
+
+In uncontrolled component we will use useRef to handle data.
+
+Difference between controlled and uncontrolled component
+
+Advantages of using controlled component in react Forms
+In controlled component form element have their values managed by react state ensuring single source of truth
+controlled component offer better control and maintainability
+
+----------------------------------------------------------------------------------------------------------------------
+Code Splitting
+
+What is code splitting in react?
+It is a technique to  split JavaScript bundle into smaller chunks which are loaded on demand.
+
+How to implement code splitting in react?
+Use React.lazy() to lazily import components.
+wrap component with suspense to handle loading.
+configure your build tool (Eg: webpack) for dynamic imports
+
+What is role of Lazy and suspense method in react?
+Lazy is used to load a component dynamically (only when needed)
+Suspense component is used to display a fallback UI while lazily loading component.
+
+
+Pros and cons of Code Splitting
+pros
+faster initial load time
+optimized bandwidth usage
+Improved caching
+parallel loading
+
+cons
+complexity
+tooling dependency
+potential runtime error
+increase number of requests
+
+what is role of import function in code splitting?
+import function return a promise that allow dynamic loading of modules.
+
+-----------------------------------------------------------------------------------------------------------------------------
+What is Higher order component in react?
+A HOC is a component which takes another component as argument and add extra features to that component.
+
+
+what is use of react profiler?
+allows developer to analyze the performance of application.
+
+what are differences between fetch and axios for api calls?
+
+How can you optimize performance in react?
+memoization with useMemo and useCallback
+lazy loading with React.Lazy
+code splitting
+optimizing images and assets
+
+-----------------------------------------------------------------------------------------------------------------------------
+Usememo hook can be used to memoize a value of a expensive computational function. 
+for example if we have a function which has complex calculation in a component. I can memoize only the particular function. So it will re-evaluate only if the dependencies change.
+
+React.memo can be used to memoize the whole component and only re-render if the prop changes.
+
+Usecallback hook can be used to memoize a function. It returns a memoized callback function. This will only recreate the function if the dependency changes
+
+
+Referential equality
+Everytime a component re-renders its function gets recreated.
+In order to avoid the function from being recreated we can use the useCallback hook,useMemo hook
+
+
+

@@ -1,0 +1,422 @@
+JavaScript Interview Question
+
+What is JavaScript?  What is the role of JavaScript engine?
+JavaScript is a programming language that is used for converting static webpage to dynamic webpages.
+
+JavaScript engine is a program present in web browser that executes JavaScript code.
+
+Chrome - V8
+Firefox - Spider Monkey
+Edge - Chakra
+
+What is scope in JavaScript?
+Scope determines where variables are defined and where they can be accessed
+Global Scope
+Function scope
+local scope
+
+What is the type of a variable in JS when it is declared without using the var,let,conts keywords ?
+if(true){
+ variable = 20;
+}
+console.log(variable)
+
+Output: 10
+
+var is the implicit type of variable when a variable is declared without var,let,const keywords
+
+What is hoisting ?
+Hoisting is a JavaScript behavior where function and variable declarations are moved to top of their respective scope during the compilation phase.
+
+myFunction();
+function myFunction(){
+console.log("Hi");
+}
+
+output: Hi
+
+x=10;
+console.log(x);
+var x;
+
+output: 10
+
+What is JSON?
+JSON is a lightweight data interchange format. It consist of key- value pairs
+
+What is difference between var, let, const?
+var is function scope. let and const are block scope.
+
+//using var
+function example(){
+ if(true){
+  var count =10;
+  console.log(count);
+  //output:10
+}
+console.log(count);
+//output:10
+}
+
+//using let
+function example(){
+ if(true){
+  var count =10;
+  console.log(count);
+  //output:10
+}
+console.log(count);
+//output: Reference error count is not defined
+}
+
+//using const
+const z=10;
+z=20;
+console.log(z);
+//output: error
+
+const can be assigned only once and its value cannot be changes afterwards
+
+Feature	                  var	                             let	                                const
+Scope	                 Function-scoped	                 Block-scoped	                     Block-scoped
+Hoisting	        Hoisted (initialized as undefined)	 Hoisted (but not initialized)	    Hoisted (but not initialized)
+Re-declaration	         Allowed	                     Not allowed in same block	        Not allowed in same block
+Re-assignment	          Allowed	                     Allowed	                          Not allowed
+Default Use Case	 Avoid using	                       Use for variables	                Use for constants
+
+What is the Temporal Dead Zone (TDZ) in JavaScript?
+The Temporal Dead Zone is the period between:
+When a variable is hoisted (its declaration is registered), and
+When it is initialized with a value in the code.
+During this time, accessing the variable will throw a ReferenceError, even though the variable is hoisted.
+
+What is function currying?
+Function Currying is a technique of transforming a function with multiple arguments into a sequence of functions, each taking one argument at a time.
+
+function greet(greeting) {
+  return function(name) {
+    return `${greeting}, ${name}!`;
+  };
+}
+const sayHello = greet("Hello");
+console.log(sayHello("Alice")); // Hello, Alice!
+
+What is Higher Order function?
+A Higher-Order Function (HOF) is a function that:
+Takes a function as an argument, or
+Returns a function as a result
+
+map() takes a callback function (num => num * 2) as an argument.
+That callback is applied to each element in the array.
+
+filter() takes a predicate function (a function that returns true or false).
+It uses this function to determine which items to keep.
+
+what is meant by shallow copy and deep copy
+Shallow copy
+A shallow copy of an object or array is a copy where only the top-level properties are duplicated. If the original object contains references to other objects, the shallow copy will still reference those same objects. This means changes to nested objects will affect both the original and the copied object.
+Example:
+let original = { a: 1, b: { c: 2 } };
+let shallowCopy = { ...original };
+shallowCopy.b.c = 3;
+console.log(original.b.c); // Outputs: 3
+
+In this example, shallowCopy is a shallow copy of original. Changing shallowCopy.b.c also changes original.b.c because they both reference the same nested object.
+
+Deep copy
+A deep copy, on the other hand, creates a completely independent copy of the original object, including all nested objects. Changes to the deep copy do not affect the original object and vice versa.
+Example
+let original = { a: 1, b: { c: 2 } };
+let deepCopy = JSON.parse(JSON.stringify(original));
+deepCopy.b.c = 3;
+console.log(original.b.c); // Outputs: 2
+
+In this example, deepCopy is a deep copy of original. Changing deepCopy.b.c does not affect original.b.c because they are completely separate objects.
+
+What is typeof NAN?
+It will be of type number.
+It is used when a mathematical expression doesn’t make sense like dividing zero by zero or converting non numeric string to number
+
+console.log(NaN === NaN) //Will return false
+JavaScript treats NaN as a special case where it says, "This value is not a number, and I can't compare it to anything, not even to another NaN."
+
+What are primitive and non-primitive data Type?
+Primitive 
+Number,String,Boolean,Undefined,Null
+
+Non-Primitive
+Object,Array,Function,Date,RegEx
+
+What is difference between primitive and non-primitive data Type
+Primitive data types can hold only single value.
+Primitive data types are immutable meaning their values once assigned cannot be changed
+
+Non-primitive data type can hold multiple value
+They are mutable and their values can be changed
+
+What is the difference between null and undefined in JS?
+When variable is declared but has not been assigned a value it is automatically initialized with undefined.
+
+null variables are intentionally assigned null value
+
+What is the use of typeof operator?
+let num = 42;
+console.log(typeof num);
+//output: number
+
+It is used to determine the type of each variable.
+
+What is type coercion in JS?
+let string="42";
+let number = 42;
+let Boolean = true;
+let nullValue = null;
+
+console.log(string + number);
+//output:"4242"
+
+console.log(number + Boolean);
+//output:43
+
+Type coercion is the automatic conversion of value from one data type to another during certain comparisons
+
+What is short circuit evaluation in JS?
+Short circuit evaluation stops the execution as soon as the result can be determined without evaluating the remaining sub-expression
+
+let result = false && somefunction();
+console.log(result);
+//output: false
+
+What is difference between == and === ?
+Loose equality == operator compares two values for equality after performing type coercion
+
+strict equality === operator compare two value for equality without performing type coercion.
+
+What is difference between spread and rest operator in JS?
+
+const arr = [1,2,3];
+console.log(...arr);
+//output:1,2,3
+spread operator is used to expand elements from an iterable into individual element
+
+
+display(1,2,3,4,5);
+function display(first, second,...restArg)
+{
+console.log(remaining);  //output: [3,4,5]
+}
+Rest operator is used in function parameters to collect all remaining arguments into an array.
+
+
+Arrays
+
+Get - indexOf, find, filter, Slice
+Add - push, concat
+Remove - pop, shift, splice
+Modify - map, foreach
+Other - join, length, sort, reverse, reduce, some, every
+
+What is the difference between find and filter methods in array?
+find() method gets the first element that satisfies a condition
+
+const arr = [1,2,3,4,5];
+let c = arr.find((i)=> i%2 ===0);
+console.log(c);
+//output: 2
+
+What is slice method of an array?
+slice method is used to get the subset of array from start index to end index(end not included)
+
+What is difference between push and concat method in array?
+push will modify the original array
+
+let arr1 = [1,2];
+arr1.push(3,4);
+console.log(arr1);
+//output:[1,2,3,4]
+
+concat method will create new array and will not modify existing array
+let arr1=[5,6];
+let arr2=arr1.concat(7,8);
+console.log(arr2);  //output:[5,6,7,8]
+console.log(arr1); //output:[5,6]
+
+what is difference between pop and shift method in array?
+pop will remove last number in array
+shift will remove first element in the array
+
+What is splice method in an array?
+splice method is used to add, remove or replace elements in array
+array.splice(startIndex, deleteCount, ...itemsToAdd);
+
+What is difference between map and foreach method in array?
+map method is used when you want to modify each element of an array and create a new array with the modified values.
+
+forEach method is used when you want to perform some operation on each element of an array without creating a new array.
+
+What are array-like object in JS?
+const str = 'hello'
+console.log(str.length);
+console.log(str[0]);
+
+How to convert array-like object into array?
+var arrayLike - {0:'a',1:'b',2:'c',length:3}
+
+var arr1= Array.from(arraylike)
+console.log(arr1) //output: ['a','b','c']
+
+var arr2=[...arrayLike]
+console.log(arr2) //output: ['a','b','c']
+
+
+Loops
+
+Difference between for and for of loop in JS?
+for of loop is more specific to array and objects
+
+
+Difference between for of and for in loop?
+
+for of loop is used to loop through values of ana object like array, string.
+It allows you to access each value directly without having to use an index.
+
+let arr = [1,2,3];
+for(let val of arr){
+ console.log(val); //output:1 2 3
+}
+
+for in loop is used to loop through properties of an object
+ 
+const person = {
+  name:'Happy',
+  role:'Developer'
+};
+for(let key in person){
+ console.log(person[key]); //output: Happy Developer
+}
+
+when to use for of loop and when to use for Each method ?
+you cannot use break or continue inside forEach method
+
+
+Functions
+
+Type of function
+Named
+Anonymous 
+function expression
+arrow function
+callback function
+Higher order function
+
+What are callback function? What is it use?
+A call back function is a function passed as argument to another function.
+
+
+function add(a,b){
+    let res=a+b;
+    return res;
+}
+
+function mul(a,b){
+    let res=a*b;
+    return res;
+}
+
+
+function display(a,b,operation){ //higher order function
+    var result = operation(a,b);
+    console.log(result)
+}
+display(3,2,add)
+display(3,2,mul)
+
+
+What is difference between argument and parameters?
+Parameters are placeholder defined in the function declaration.
+Arguments are actual value passed to function when it is invoked.
+
+function add(a,b){ //a,b are parameters
+ console.log(a+b);
+}
+add(2,3) //2,3 are arguments
+
+What are pure and impure function in JS?
+
+A pure function is a function that always produces same output for same input.
+Pure function cannot modify state and it cannot have side effects.
+
+function add(a,b){
+ return a+b;
+}
+console.log(add(2,3))
+
+Impure function can produce different output for same input.
+Impure function can modify state and can have side effects.
+
+let total=0
+function addTotal(val){
+ total+=val;
+ return total;
+}
+console.log(addTotal(5)) //output:5
+
+console.log(addTotal(5)) //output:10
+
+What is string immutability?
+String in JS are considered immutable because you cannot modify the content of an existing string directly
+
+DOM
+What is difference between getElementById, getElementsByClassName, getElementsByName?
+
+getElementById - select a single element
+getElementsByClassName - select multiple elements that share the same class
+
+What is difference between querySelector and querySelectorAll?
+querySelector - return the first element
+querySelectorAll - return all elements
+
+What is difference between innerHTML and textContent?
+
+What is error propagation in JS?
+error propagating refers to the process of passing or propagating an error from one part of code to another by using throw statement with try catch
+
+How do you check if a property exists in an object?
+
+var person = {
+ name: "john",
+ age:31,
+}
+
+console.log("name" in person) //output:true
+console.log(person.hasOwnProperty("name")) //output:true
+console.log(person.name != undefined); //output:true
+
+
+what is Map Object in JS?
+Map object is collection of key-value pairs where each key can be of any type and each value can also be of any type.
+
+A map maintains the order of key-value pairs as they were inserted.
+
+What is event object in JS?
+Whenever an event is triggered the browser automatically creates an event object and passes it as argument to the event handler function
+
+What is event delegation in JS?
+Event delegation in JS is a technique where you attach single event handle to parent element to handle events on its child elements
+
+What is event bubbling in JS?
+is the process in JS where an event is triggered on a child element propagates up the DOM tree, triggering event handlers on its parent element
+
+Event bubbling can be stopped by using stopPropagation() method in event handlers
+
+What is event capturing in JS?
+the sequence of trigger will be from top to bottom elements.
+
+
+
+
+
+
+
+
+
