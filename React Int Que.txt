@@ -279,7 +279,56 @@ Every update triggers a process:
     - commit phase: applies changes to the DOM
 
 ----------------------------------------
+Scenario based
+How do you handle sensitive data in client?
+Minimize Data Exposure
+  - Send only what is needed dont send unneccesary personal or sensitive data from backend
+  - use field level filtering to avoid exposing sensitive fields in API
 
+Secure Storage
+  - avoid storing sensitive data in localStorage/SessionStorage (vulnerable to XSS attack)
+  - if you must store token prefer httpOnly cookies (not accessible to JS)
 
+Authentication & Authorization
+  - use short-lived JWTs or access tokens with refersh tokens stored in httpOnly cookies
+  - validate all sensitive operations on server side not the client
 
+Secure Communication
+  - always use HTTPS to prevent man-in-middle attacks
+  - consider certificate pinning in mobile apps
 
+--------------------------------------------------
+what is HttpOnly cookie?
+It is a cookie that has the HttpOnly flag set when the server sends it. This means JavaScript on the client cannot acces it via document.cookie
+Only the browser managers it automatically during HTTPS requests to the server.
+So attackers exploitting XSS(Cross site scripting) cannot steal these cookies because they are not accesible in JavaScript
+
+fetch("url",{
+  method:"GET",
+  credentials:"include" //allows cookies including HttpOnly to be sent
+)
+
+HttpOnly cookies can only be set by the server via Set-Cookie headers
+
+----------------------------------------------------
+If HttpOnly cookies are not accessible in React how do you know if a user is logged in?
+   - On app load call the backend endpoint like /auth/me with credentials:"include"
+   - The backend checks the HttpOnly cookie. if valid,return thr user info
+   - react stores the user in state/context (not localStorage)
+
+How would you prevent CSRF attacks if you're using HttpOnly cookies for auth?
+   - set SameSite=Strict on cookies to prevent cross site requests.
+   - for APIs that must allow cross site request use anti-CSRF tokens
+       - backend sends a CSRF token in the response body(not cookie)
+       - react includes this token in request headers
+       - backend validates it along with the HttpOnly cookie
+
+During login your react app is on port 300 and you .NET Api is on port 5001.The cookie isn't being set. Why?
+Because of CORS + cookie policies
+  - you must set credentials:"include" in fetch (frontend)
+  - backend also must allows credentials
+    app.UseCors(policy => policy.WithOrigins("URL")
+        .AllowCredentials()
+        .AllowAnyHeaders()
+        .AllowAnyMethod()
+    );
