@@ -184,6 +184,15 @@ What is role of Lazy and suspense method in react?
 Lazy is used to load a component dynamically (only when needed)
 Suspense component is used to display a fallback UI while lazily loading component.
 
+import React, {Suspense,lazy} from 'react';
+const Profile = lazy(()=>import('./Profile'));
+function App(){
+return(
+  <Suspense fallback={{<div>Loading</div>}}>
+  <Profile/>
+  </Suspense>
+)
+}
 
 Pros and cons of Code Splitting
 pros
@@ -229,6 +238,48 @@ Usecallback hook can be used to memoize a function. It returns a memoized callba
 Referential equality
 Everytime a component re-renders its function gets recreated.
 In order to avoid the function from being recreated we can use the useCallback hook,useMemo hook
+--------------------------------------------------------------------------------------------------------------------------
+How state is handled in microfrontend?
+In a microfrontend architecture each micro front end is usually an independent application that handles its own state and UI.
+But sometimes they need to share or transfer state for example if user logs in from MFE-A and you want MFE-B to also know the user is logged in you can use
+Global Event bus (custome event)
+   -use browsers customEvent or a shared event emitter
+   -MFE can dispatch events and listen fro them, making it loosely coupled
+
+MFE-A
+window.dispatchEvent(new CustomEvent('userLogin', {detail: {name:"Joe"} } ));
+
+MFE-B
+window.addEventListener('userLogin',(e)=>{console.log(e.detail.name); });
+
+Shared Global State
+  -you keep a single store outside of MFE
+  -all MFE import and use the same store instance
+
+---------------------------------------------------------------------------------
+React Portal
+Normally react renders children into the DOM inside the parent components DOM hierarchy.
+Portal allow you to render a component outside its parent DOM hierarchy
+
+UseCase: Modals,tooltips,dropdowns anything that needs to break out of the parent
+It helps to avoid CSS issues like z-index,overflow:hidden.
+-------------------------------------
+React Fiber 
+is the internal rendering engine in react since react 16
+it decides how and when to update the DOM
+
+old react (stack reconciler) updated the DOM synchronously - blocking
+Fiber enables incremental rendering
+  -breaks work into chunks
+  -allows react to pause,prioritize or abort work
+
+Fiber creates a tree data structure, each node is a fiber
+Every update triggers a process:
+    - render phase: creates a work in progress fiber tree
+    - commit phase: applies changes to the DOM
+
+----------------------------------------
+
 
 
 
