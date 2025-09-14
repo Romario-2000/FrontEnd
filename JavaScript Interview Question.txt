@@ -414,6 +414,214 @@ the sequence of trigger will be from top to bottom elements.
 
 
 
+-----------------------------------------------------------------------------------------------------------------------
+
+ES6 concepts
+
+let and const 
+classes and inheritance
+Template literals
+String and Number Methods
+StartWith()
+endsWith()
+includes()
+
+isNan()
+isInteger()
+isFinite()
+
+Spread Operator
+---------------------------------------------
+Set, Map, WeakSet, WeakMap
+
+Set - can store heterogenous elements
+
+let myset = new Set([1,45,23,1]);
+myset.forEach((i)=>{
+    console.log(i)
+    })
+
+WeakSet
+It is a special collection that holds weak references to objects.
+It only allows objects as elements (no primitives like numbers or strings).
+It doesn't prevent garbage collection if there are no other references to the object.
+It cannot be iterated, and its contents cannot be directly logged or inspected like arrays or sets.
+
+let carWeakSet = new WeakSet();
+
+let Car1 ={
+    make:'Suzuki',
+    model:'baleno'
+}
+
+carWeakSet.add(Car1)
+console.log(carWeakSet)
+
+The output:
+console.log(carWeakSet) will not show the contents of the WeakSet. It will just show something like: WeakSet { <items unknown> }
+
+How to confirm that Car1 was added
+You can use has() to check:
+
+console.log(carWeakSet.has(Car1));  // true
+-----------
+
+WeakMap
+
+A WeakMap is a collection of key-value pairs where:
+Keys must be objects (not primitives like numbers or strings).
+Values can be any data type.
+Keys are held weakly, meaning if there are no other references to the key object, it can be garbage collected.
+It is not iterable, and you cannot inspect its contents directly.
+It's useful for storing metadata or private data associated with objects without affecting garbage collection.
+
+let carWeakMap = new WeakMap();
+
+let Car1 = {
+    make: 'Suzuki',
+    model: 'Baleno'
+};
+
+let details = {
+    price: 800000,
+    color: 'red'
+};
+
+// Set a key-value pair in the WeakMap
+carWeakMap.set(Car1, details);
+
+// Check if the key exists
+console.log(carWeakMap.has(Car1));  // true
+
+// Get the value associated with the key
+console.log(carWeakMap.get(Car1));  // { price: 800000, color: 'red' }
+
+// Delete the key-value pair
+carWeakMap.delete(Car1);
+
+// Check again
+console.log(carWeakMap.has(Car1));  // false
+
+--------------------------------------------------------------------
+Arrow functions
+
+Promise
+A Promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+It allows you to write asynchronous code in a more manageable way than callbacks, making it easier to handle operations like API requests, reading files, or timers.
+
+A Promise has three states:
+
+Pending – The initial state; the operation hasn't completed yet.
+Fulfilled – The operation completed successfully, and a result is available.
+Rejected – The operation failed, and an error is available.
+
+How to create a promise
+
+const myPromise = new Promise((resolve, reject) => {
+    // Asynchronous operation here
+    let success = true;  // Simulate operation result
+
+    if (success) {
+        resolve("Operation was successful!");
+    } else {
+        reject("There was an error.");
+    }
+});
+
+Once the Promise is created, you can handle its result using .then() and .catch()
+
+myPromise
+    .then(result => {
+        console.log(result); // "Operation was successful!"
+    })
+    .catch(error => {
+        console.error(error); // If rejected, shows the error
+    });
+
+
+Promise.all waits for all Promises to resolve and gives you all their results together. If any of the Promises reject, it stops and throws an error.
+
+const promise1 = new Promise((resolve) => {
+    setTimeout(() => resolve('Result from Promise 1'), 1000);
+});
+
+const promise2 = new Promise((resolve) => {
+    setTimeout(() => resolve('Result from Promise 2'), 2000);
+});
+
+const promise3 = new Promise((resolve) => {
+    setTimeout(() => resolve('Result from Promise 3'), 1500);
+});
+
+Promise.all([promise1, promise2, promise3])
+    .then(results => {
+        console.log('All results:', results);
+    })
+    .catch(error => {
+        console.error('One of the promises failed:', error);
+    });
+
+Output
+All results: [ 'Result from Promise 1', 'Result from Promise 2', 'Result from Promise 3' ]
+--------------------------------
+
+Promise.race returns the result or error of the first Promise that settles (resolves or rejects).
+
+const fastPromise = new Promise((resolve) => {
+    setTimeout(() => resolve('Fast Promise resolved!'), 1000);
+});
+
+const slowPromise = new Promise((resolve) => {
+    setTimeout(() => resolve('Slow Promise resolved!'), 3000);
+});
+
+Promise.race([fastPromise, slowPromise])
+    .then(result => {
+        console.log('Race result:', result);
+    })
+    .catch(error => {
+        console.error('Race error:', error);
+    });
+
+output
+Race result: Fast Promise resolved!
+
+-----------------------------------------
+Generator
+
+A generator is a special type of function that can pause and resume its execution. It allows you to yield multiple values over time, rather than returning a single value like a regular function.
+
+You define a generator by using the function* syntax and yield expressions inside it.
+function* myGenerator() {
+    yield 1;
+    yield 2;
+    yield 3;
+}
+
+function* marks it as a generator.
+yield pauses the function and outputs a value.
+
+Calling a generator function does not execute it immediately. Instead, it returns an iterator (called a generator object).
+const gen = myGenerator();
+
+console.log(gen.next()); // { value: 1, done: false }
+console.log(gen.next()); // { value: 2, done: false }
+console.log(gen.next()); // { value: 3, done: false }
+console.log(gen.next()); // { value: undefined, done: true }
+
+.next() resumes the generator until the next yield.
+It returns an object with two properties:
+value: the yielded value.
+done: true if the generator has finished.
+
+Why Use Generators?
+Lazy evaluation – Only compute values when needed.
+Control flow – Pause and resume functions at specific points.
+Iterators – Useful for traversing large datasets.
+Asynchronous programming – Can work with promises to handle async flows more elegantly.
+
+
+
 
 
 
