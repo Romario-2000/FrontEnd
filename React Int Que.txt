@@ -332,3 +332,158 @@ Because of CORS + cookie policies
         .AllowAnyHeaders()
         .AllowAnyMethod()
     );
+
+-----------------------------------------------
+React works locally but not after Azure deployment where do you start debugging?
+1)Check build process
+Did you run npm run build (or yarn build) successfully before deploying?
+Is the build folder deployed to Azure?
+
+2)Check Azure deployment logs
+Review the Azure App Service logs or Container logs depending on how you deployed it.
+Look for build errors, failed start scripts, or runtime errors.
+
+Where to check:
+App Service > Diagnose and solve problems
+Log stream in Azure portal
+
+3)Check environment variables
+Are you using .env files locally that are not set in Azure?
+Check if REACT_APP_* environment variables are properly configured in Azure.
+
+Where to set:
+Configuration tab in Azure App Service → Application settings.
+
+4)Check API endpoints
+If you're calling backend services, are those endpoints reachable from Azure?
+Is CORS configured correctly?
+Are environment URLs correct in the deployed environment?
+
+5)Check static file serving
+Is Azure configured to serve the static files (build folder)?
+Check the index.html, static/js, static/css files are present and served.
+
+6)Check browser console/network errors
+Open DevTools → Console & Network tab.
+
+Look for:
+404 errors (files not found)
+CORS errors
+JS errors preventing execution
+Missing environment variables
+
+------------------------------------------
+
+API works in postman but not from react what is your checklist?
+1)CORS (Cross-Origin Resource Sharing) issues
+Postman bypasses CORS, but browsers enforce it.
+Check if the API allows requests from your React app’s domain.
+
+What to check:
+Does the API response include the Access-Control-Allow-Origin header?
+Is it set to * or to your React app’s URL?
+
+Solutions:
+Update server-side CORS settings.
+Use a proxy in development (package.json -> "proxy": "https://api.example.com").
+Use Azure API Management or CORS settings if hosted there.
+
+2)Incorrect API URL
+Postman may use full URLs, but React may be using relative paths or wrong environment variables.
+
+What to check:
+Are you using process.env.REACT_APP_API_URL?
+Does it match the production/development environment?
+Is the protocol (http vs https) correct?
+
+3)HTTP vs HTTPS
+Browsers block mixed content requests (https page calling http API).
+
+What to check:
+Is your React app served over HTTPS but your API over HTTP?
+Use HTTPS everywhere.
+
+4)Authentication/Authorization issues
+Postman may have headers, tokens, or cookies you manually set.
+
+What to check:
+Are you sending the same Authorization header in your React request?
+Is the token stored and retrieved correctly in localStorage, sessionStorage, or state?
+
+5)Request headers/content-type issues
+Postman may set Content-Type: application/json or others by default.
+
+What to check:
+Are you specifying the correct headers in your fetch/axios request?
+
+6)Network or browser errors
+Open DevTools → Console and Network tabs.
+
+What to check:
+Are requests blocked by CORS or other security policies?
+Are requests failing with 4xx or 5xx status codes?
+Are requests timing out or not sent at all?
+
+-----------------------------------------------
+App slows down with more users. what do you check first?
+1)Server-side bottlenecks
+Is the backend/API under load?
+Check CPU, memory, disk, and network utilization.
+Look for database connection limits or slow queries.
+Are requests queued or timing out?
+
+Tools:
+Azure Monitor / App Insights
+Logs, metrics dashboards
+Database query analysis tools
+
+2)Network latency and bandwidth
+More users → more data requests.
+Are your endpoints throttled or experiencing network delays?
+Are static assets being cached or repeatedly downloaded?
+
+Check:
+CDN usage (like Azure CDN, Cloudflare)
+Browser caching headers (Cache-Control)
+File sizes and compression (gzip, Brotli)
+
+3)Client-side performance
+Is the app doing unnecessary re-rendering?
+Are components rerendering too frequently or handling state inefficiently?
+
+Tools:
+React DevTools → inspect rendering behavior
+Chrome Performance tab → CPU usage, scripting time
+
+Check:
+Are you using useEffect or state hooks inefficiently?
+Are expensive calculations happening on every render?
+Are you memoizing where needed (React.memo, useMemo, useCallback)?
+
+4)State management issues
+Large or deeply nested state can cause excessive renders.
+Is global state causing entire tree rerenders on small changes?
+
+Check:
+Are you lifting state unnecessarily?
+Is state localized or distributed appropriately?
+
+5)API requests and data fetching patterns
+Are requests being sent multiple times by different components?
+Are results cached or refetched on every render?
+
+Solutions:
+Use libraries like React Query, SWR for caching and background updates.
+Debounce user inputs to prevent rapid calls.
+
+6)Authentication or session handling
+Are users re-authenticating frequently due to session mismanagement?
+Are tokens refreshed inefficiently?
+
+7)Static assets optimization
+Are images, videos, or large assets being served efficiently?
+Are unnecessary libraries bloating the bundle?
+
+Check:
+Run npm run analyze with webpack-bundle-analyzer or similar
+Optimize images, split code, lazy-load components
